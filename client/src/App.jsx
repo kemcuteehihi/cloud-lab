@@ -96,7 +96,10 @@ function App() {
 
   return (
     <div className="container" style={{ padding: '20px', maxWidth: '600px', margin: 'auto' }}>
-      <h1>Quản lý Sinh viên (MERN Stack)</h1>
+     <h1 style={{ lineHeight: '1.5', textAlign: 'center', marginBottom: '20px' }}>
+  Quản lý Sinh viên <br /> 
+  <span style={{ fontSize: '0.8em', color: '#555' }}>Phiên bản 2.0</span>
+</h1>
 
       {/* Form Nhập liệu (Thêm / Sửa) */}
       <div style={{ marginBottom: '20px', padding: '20px', border: '1px solid #ccc' }}>
