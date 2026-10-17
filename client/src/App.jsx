@@ -8,11 +8,11 @@ function App() {
     name: '',
     email: ''
   })
-  const [editingId, setEditingId] = useState(null) // Quản lý trạng thái khi đang sửa sinh viên
+  const [editingId, setEditingId] = useState(null)
 
-  const BACKEND_URL = "http://localhost:5000"
+  // ĐÃ SỬA: Gắn cứng link Backend trực tiếp để tránh lỗi biến môi trường khi build Docker
+  const BACKEND_URL = 'https://mern-backend-235399.onrender.com';
 
-  // Hàm lấy danh sách sinh viên (GET)
   const fetchStudents = async () => {
     try {
       const response = await fetch(`${BACKEND_URL}/api/students`)
@@ -31,20 +31,17 @@ function App() {
     setFormData({ ...formData, [e.target.name]: e.target.value })
   }
 
-  // Hàm xử lý Thêm (POST) hoặc Cập nhật (PUT)
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       let response;
       if (editingId) {
-        // Gọi API Cập nhật (PUT) - Câu 38/77
         response = await fetch(`${BACKEND_URL}/api/students/${editingId}`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(formData),
         });
       } else {
-        // Gọi API Thêm mới (POST) - Câu 37/75
         response = await fetch(`${BACKEND_URL}/api/students`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -65,7 +62,6 @@ function App() {
     }
   }
 
-  // Đưa dữ liệu sinh viên cần sửa lên form
   const handleEdit = (student) => {
     setEditingId(student._id);
     setFormData({
@@ -75,7 +71,6 @@ function App() {
     });
   }
 
-  // Hàm Xóa sinh viên (DELETE) - Câu 39/78
   const handleDelete = async (id) => {
     if (window.confirm("Bạn có chắc chắn muốn xóa sinh viên này không?")) {
       try {
@@ -98,7 +93,6 @@ function App() {
     <div className="container" style={{ padding: '20px', maxWidth: '600px', margin: 'auto' }}>
       <h1>Quản lý Sinh viên (MERN Stack)</h1>
 
-      {/* Form Nhập liệu (Thêm / Sửa) */}
       <div style={{ marginBottom: '20px', padding: '20px', border: '1px solid #ccc' }}>
         <h2>{editingId ? "Cập nhật thông tin Sinh viên" : "Thêm Sinh viên mới"}</h2>
         <form onSubmit={handleSubmit}>
@@ -125,7 +119,6 @@ function App() {
         </form>
       </div>
 
-      {/* Danh sách sinh viên kèm nút Sửa và Xóa */}
       <div className="student-list">
         <h2>Danh sách sinh viên hiện tại:</h2>
         {students.length === 0 ? (
